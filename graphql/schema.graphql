@@ -1,0 +1,26 @@
+type Note {
+  id: ID!
+  name: String!,
+  complete: Boolean!
+}
+
+input NoteInput {
+  id: ID!
+  name: String!
+  complete: Boolean!
+}
+
+type Query {
+  listNotes: [Note]
+}
+
+type Mutation {
+  createNote(note: NoteInput!): Note
+}
+
+type Subscription {
+  onCreateNote: Note
+
+  # enable subscriptions on our server
+  @aws_subscribe(mutations: ["createNote"])
+}
