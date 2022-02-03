@@ -5,11 +5,20 @@ import {
   CfnGraphQLApi,
   CfnGraphQLSchema,
   CfnResolver,
-
 } from 'aws-cdk-lib/aws-appsync';
-import { AccountRecovery, CfnUserPoolGroup, UserPool, UserPoolClient } from 'aws-cdk-lib/aws-cognito';
+import {
+  AccountRecovery,
+  CfnUserPoolGroup,
+  UserPool,
+  UserPoolClient
+} from 'aws-cdk-lib/aws-cognito';
 import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb';
-import { Effect, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
+import {
+  Effect,
+  PolicyStatement,
+  Role,
+  ServicePrincipal
+} from 'aws-cdk-lib/aws-iam';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Construct } from 'constructs';
@@ -45,7 +54,7 @@ export class NadetGraphQlAppSyncStack extends Stack {
 
     new CfnUserPoolGroup(this, 'AppSyncUPAdminsGroup', {
       groupName: 'AppSyncUPAdminsGroup',
-      userPoolId: userPool.userPoolId
+      userPoolId: userPool.userPoolId,
     });
 
 
@@ -71,14 +80,12 @@ export class NadetGraphQlAppSyncStack extends Stack {
       name: 'GraphQLAPI',
       authenticationType: 'API_KEY',
       xrayEnabled: true,
-      logConfig: {
-        fieldLogLevel: 'ALL'
-      },
       additionalAuthenticationProviders: [{
         authenticationType: 'AMAZON_COGNITO_USER_POOLS',
         userPoolConfig: {
           userPoolId: userPool.userPoolId,
-          appIdClientRegex: userPoolClient.userPoolClientId
+          appIdClientRegex: userPoolClient.userPoolClientId,
+          awsRegion: props?.env?.region
         }
       }]
     });

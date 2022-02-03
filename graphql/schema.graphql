@@ -5,6 +5,7 @@ type Note @aws_api_key @aws_cognito_user_pool {
 }
 
 input NoteInput {
+  id: ID
   name: String!
   complete: Boolean!
 }
