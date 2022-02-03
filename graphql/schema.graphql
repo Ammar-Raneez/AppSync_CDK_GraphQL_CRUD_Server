@@ -1,26 +1,39 @@
-type Note {
+type Note @aws_api_key @aws_cognito_user_pool {
   id: ID!
   name: String!,
   complete: Boolean!
 }
 
 input NoteInput {
-  id: ID!
   name: String!
   complete: Boolean!
 }
 
+input UpdateNoteInput {
+  id: ID!
+  name: String
+  complete: Boolean
+}
+
 type Query {
+  getNoteById(noteId: ID!): Note
+    @aws_api_key @aws_cognito_user_pool
   listNotes: [Note]
+    @aws_api_key @aws_cognito_user_pool
+  notesByCompletion(complete: Boolean!): [Note]
+    @aws_api_key @aws_cognito_user_pool
 }
 
 type Mutation {
   createNote(note: NoteInput!): Note
+    @aws_cognito_user_pool(cognito_groups: ["Admin"])
+  deleteNote(noteId: ID!): ID
+    @aws_cognito_user_pool(cognito_groups: ["Admin"])
+  updateNote(note: UpdateNoteInput!): Note
+    @aws_cognito_user_pool(cognito_groups: ["Admin"])
 }
 
 type Subscription {
   onCreateNote: Note
-
-  # enable subscriptions on our server
   @aws_subscribe(mutations: ["createNote"])
 }
