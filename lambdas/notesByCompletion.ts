@@ -2,7 +2,7 @@ import { DynamoDB } from 'aws-sdk';
 
 const dbClient = new DynamoDB.DocumentClient();
 
-async function notesByCompletion(complete: boolean) {
+async function notesByCompletion(complete: string) {
   try {
     const data = await dbClient.query({
       TableName: process.env.NOTES_TABLE!,

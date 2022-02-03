@@ -102,18 +102,19 @@ export class NadetGraphQlAppSyncStack extends Stack {
         type Note @aws_api_key @aws_cognito_user_pool {
           id: ID!
           name: String!,
-          complete: Boolean!
+          complete: String!
         }
 
         input NoteInput {
+          id: ID
           name: String!
-          complete: Boolean!
+          complete: String!
         }
 
         input UpdateNoteInput {
           id: ID!
           name: String
-          complete: Boolean
+          complete: String
         }
 
         type Query {
@@ -121,17 +122,17 @@ export class NadetGraphQlAppSyncStack extends Stack {
             @aws_api_key @aws_cognito_user_pool
           listNotes: [Note]
             @aws_api_key @aws_cognito_user_pool
-          notesByCompletion(complete: Boolean!): [Note]
+          notesByCompletion(complete: String!): [Note]
             @aws_api_key @aws_cognito_user_pool
         }
 
         type Mutation {
           createNote(note: NoteInput!): Note
-            @aws_cognito_user_pool(cognito_groups: ["Admin"])
+            @aws_cognito_user_pool(cognito_groups: ["AppSyncUPAdminsGroup"])
           deleteNote(noteId: ID!): ID
-            @aws_cognito_user_pool(cognito_groups: ["Admin"])
+            @aws_cognito_user_pool(cognito_groups: ["AppSyncUPAdminsGroup"])
           updateNote(note: UpdateNoteInput!): Note
-            @aws_cognito_user_pool(cognito_groups: ["Admin"])
+            @aws_cognito_user_pool(cognito_groups: ["AppSyncUPAdminsGroup"])
         }
 
         type Subscription {

@@ -4,11 +4,6 @@ const dbClient = new DynamoDB.DocumentClient();
 
 async function updateNote(noteId: string, note: any) {
   try {
-    const { Item } = await dbClient.get({
-      TableName: process.env.NOTES_TABLE!,
-      Key: { id: noteId },
-    }).promise();
-
     const params: any = {
       TableName: process.env.NOTES_TABLE!,
       Key: { id: noteId },

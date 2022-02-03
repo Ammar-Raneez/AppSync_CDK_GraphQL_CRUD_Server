@@ -12,7 +12,7 @@ type AppSyncEvent = {
   },
   arguments: {
     noteId: string,
-    complete: boolean,
+    complete: string,
     note: Note
   },
   identity: {
