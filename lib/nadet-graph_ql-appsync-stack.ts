@@ -7,7 +7,7 @@ import {
   CfnResolver,
 
 } from 'aws-cdk-lib/aws-appsync';
-import { AccountRecovery, UserPool, UserPoolClient } from 'aws-cdk-lib/aws-cognito';
+import { AccountRecovery, CfnUserPoolGroup, UserPool, UserPoolClient } from 'aws-cdk-lib/aws-cognito';
 import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Effect, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
@@ -41,6 +41,11 @@ export class NadetGraphQlAppSyncStack extends Stack {
         userSrp: true,
       },
       generateSecret: false,
+    });
+
+    new CfnUserPoolGroup(this, 'AppSyncUPAdminsGroup', {
+      groupName: 'AppSyncUPAdminsGroup',
+      userPoolId: userPool.userPoolId
     });
 
 
