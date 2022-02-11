@@ -1,8 +1,8 @@
 {
-  "name": "nadet-graph_ql-appsync",
+  "name": "graph_ql-appsync",
   "version": "0.1.0",
   "bin": {
-    "nadet-graph_ql-appsync": "bin/nadet-graph_ql-appsync.js"
+    "graph_ql-appsync": "bin/graph_ql-appsync.js"
   },
   "scripts": {
     "build": "tsc",

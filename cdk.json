@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/nadet-graph_ql-appsync.ts",
+  "app": "npx ts-node --prefer-ts-exts bin/graph_ql-appsync.ts",
   "watch": {
     "include": [
       "**"
